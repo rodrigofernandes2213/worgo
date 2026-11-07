@@ -1,25 +1,279 @@
-import {
- getDocs,
- collection
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+Abaixo está um código completo de página inicial para a WorkGo, com visual profissional, cadastro de candidatos e área de vagas. Salve como index.html.
 
-const querySnapshot = await getDocs(
-  collection(db, "candidatos")
-);
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkGo - Encontre seu Emprego</title>
 
-querySnapshot.forEach((doc) => {
-
- document.getElementById("lista").innerHTML += `
-   <div>
-      <h3>${doc.data().nome}</h3>
-      <p>${doc.data().email}</p>
-      <p>${doc.data().telefone}</p>
-   </div>
- `;
-
-});{
-  "nome": "João Silva",
-  "email": "joao@gmail.com",
-  "telefone": "11999999999",
-  "curriculo": "curriculo.pdf"
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
+
+body{
+    background:#f4f6f9;
+    color:#333;
+}
+
+header{
+    background:#0a66c2;
+    color:#fff;
+    padding:20px 10%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+.hero{
+    text-align:center;
+    background:linear-gradient(to right,#0a66c2,#004182);
+    color:white;
+    padding:100px 20px;
+}
+
+.hero h1{
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:20px;
+    margin-bottom:30px;
+}
+
+.btn{
+    background:#fff;
+    color:#0a66c2;
+    padding:15px 30px;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section{
+    padding:60px 0;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#0a66c2;
+}
+
+.formulario{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+input, textarea{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    background:#0a66c2;
+    color:white;
+    padding:12px 25px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#004182;
+}
+
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">WorkGo</div>
+
+    <nav>
+        <a href="#sobre">Sobre</a>
+        <a href="#vagas">Vagas</a>
+        <a href="#cadastro">Cadastro</a>
+        <a href="#contato">Contato</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Seu próximo emprego começa aqui</h1>
+    <p>Conectamos candidatos às melhores oportunidades.</p>
+    <a href="#cadastro" class="btn">Cadastrar Currículo</a>
+</section>
+
+<section id="sobre" class="section">
+    <div class="container">
+        <h2>Por que escolher a WorkGo?</h2>
+        <br>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Empregos Reais</h3>
+                <p>Vagas atualizadas diariamente.</p>
+            </div>
+
+            <div class="card">
+                <h3>Processo Rápido</h3>
+                <p>Cadastro simples e envio imediato para empresas.</p>
+            </div>
+
+            <div class="card">
+                <h3>Suporte Profissional</h3>
+                <p>Ajudamos candidatos a encontrar melhores oportunidades.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="vagas" class="section">
+    <div class="container">
+
+        <h2>Vagas em Destaque</h2>
+        <br>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Auxiliar Administrativo</h3>
+                <p>Salário: R$ 2.000</p>
+                <p>São Paulo - SP</p>
+            </div>
+
+            <div class="card">
+                <h3>Atendente</h3>
+                <p>Salário: R$ 1.800</p>
+                <p>Home Office</p>
+            </div>
+
+            <div class="card">
+                <h3>Vendedor</h3>
+                <p>Salário: R$ 2.500 + comissão</p>
+                <p>Campinas - SP</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section id="cadastro" class="section">
+    <div class="container">
+
+        <h2>Cadastro de Candidato</h2>
+        <br>
+
+        <div class="formulario">
+
+            <form id="formCadastro">
+
+                <label>Nome Completo</label>
+                <input type="text" id="nome" required>
+
+                <label>E-mail</label>
+                <input type="email" id="email" required>
+
+                <label>WhatsApp</label>
+                <input type="text" id="telefone" required>
+
+                <label>Experiência Profissional</label>
+                <textarea id="experiencia" rows="5"></textarea>
+
+                <button type="submit">
+                    Enviar Cadastro
+                </button>
+
+            </form>
+
+            <div id="mensagem"></div>
+
+        </div>
+
+    </div>
+</section>
+
+<section id="contato" class="section">
+    <div class="container">
+        <h2>Contato</h2>
+        <br>
+
+        <p>Email: contato@workgo.com</p>
+        <p>WhatsApp: (11) 99999-9999</p>
+    </div>
+</section>
+
+<footer>
+    © 2026 WorkGo - Todos os direitos reservados.
+</footer>
+
+<script>
+document
+.getElementById("formCadastro")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    document.getElementById("mensagem").innerHTML =
+    "<br><p style='color:green;font-weight:bold'>Cadastro enviado com sucesso!</p>";
+
+    this.reset();
+});
+</script>
+
+</body>
+</html>
+
+
+Esse código cria um site funcional, mas os dados ainda não ficam salvos. Para realmente armazenar nomes, e-mails, WhatsApp e currículos, você precisará de um backend (PHP + MySQL, Firebase ou Node.js) e um painel administrativo para visualizar os candidatos.
