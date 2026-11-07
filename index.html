@@ -1,0 +1,25 @@
+import {
+ getDocs,
+ collection
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const querySnapshot = await getDocs(
+  collection(db, "candidatos")
+);
+
+querySnapshot.forEach((doc) => {
+
+ document.getElementById("lista").innerHTML += `
+   <div>
+      <h3>${doc.data().nome}</h3>
+      <p>${doc.data().email}</p>
+      <p>${doc.data().telefone}</p>
+   </div>
+ `;
+
+});{
+  "nome": "João Silva",
+  "email": "joao@gmail.com",
+  "telefone": "11999999999",
+  "curriculo": "curriculo.pdf"
+}
